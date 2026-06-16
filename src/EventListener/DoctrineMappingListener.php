@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
  * This class adds automatically the ManyToOne and OneToMany relations in Page and Category entities,
  * because it's normally impossible to do so in a mapped superclass.
  */
-class DoctrineMappingListener imlements EventSubscriber
+class DoctrineMappingListener implements EventSubscriber
 {
     public function __construct(
         /**
