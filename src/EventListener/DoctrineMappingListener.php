@@ -2,7 +2,8 @@
 
 namespace Adeliom\EasyPageBundle\EventListener;
 
-use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
+use Doctrine\Common\EventSubscriber;
+#use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -11,8 +12,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
  * This class adds automatically the ManyToOne and OneToMany relations in Page and Category entities,
  * because it's normally impossible to do so in a mapped superclass.
  */
-#[AsDoctrineListener(Events::loadClassMetadata)]
-class DoctrineMappingListener
+class DoctrineMappingListener imlements EventSubscriber
 {
     public function __construct(
         /**
@@ -20,6 +20,13 @@ class DoctrineMappingListener
          */
         private string $pageClass
     ) {
+    }
+
+    public function getSubscribedEvents(): array
+    {
+        return [
+            Events::loadClassMetadata,
+        ];
     }
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs): void
